@@ -1,0 +1,26 @@
+# VS Code settings
+.vscode/
+
+# Compiled files
+*.exe
+*.out
+*.o
+*.obj
+*.dll
+*.so
+
+# Debug files
+*.pdb
+*.ilk
+
+# Temporary files
+*.tmp
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build folders
+build/
+bin/
