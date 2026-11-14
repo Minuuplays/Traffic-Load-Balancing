@@ -1,0 +1,4 @@
+nodes,roads,steps,algorithm,max_load,avg_load,variance,total_distance,overload,unrouted,time_ms
+10,13,2,Shortest Path,144.0,29.73,1402.1,9215,1,0,0.01
+10,13,2,Greedy LB,96.0,38.85,697.65,12465,0,0,0.05
+10,13,2,CALB,99.0,34.23,682.82,10593,0,0,0.28

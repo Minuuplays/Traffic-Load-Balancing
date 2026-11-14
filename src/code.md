@@ -27,9 +27,7 @@ CALB uses an optimal minimum-cost flow split for each request.
 
 The cost of assigning the *k-th* vehicle to a road is:
 
-\[
-\text{Cost}(k) = w \times (1 + \text{ALPHA} \times (k-1))
-\]
+Cost(k) = w × (1 + ALPHA × (k − 1))
 
 Where:
 - `w` = base weight of the road.

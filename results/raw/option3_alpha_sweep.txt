@@ -1,0 +1,27 @@
+
+========== TRAFFIC LOAD BALANCING LAB (capacity 100) ==========
+ 1. Small example (shows paths, vehicles, road loads)
+ 2. Custom network size
+ 3. Trade-off test (change alpha)
+ 4. Scalability test (running time)
+ 0. Exit
+Choice: 
+Proposed method with different alpha (200 nodes, 3 time steps)
+alpha = 0: shortest paths, only capacity forces detours; bigger alpha = more balancing
+alpha             MaxLoad  AvgLoad   Variance  TotalDist   Overload  Unrouted  Time(ms)
+---------------------------------------------------------------------------------------
+alpha=0.00         100.00     8.40     372.41      76748          0         0     28.88
+alpha=0.02         100.00     8.09     190.87      79570          0         0     91.64
+alpha=0.05          92.00     8.14     128.62      85933          0         0    113.82
+alpha=0.10          75.00     8.27      93.22      92658          0         0    132.68
+alpha=0.20          69.00     8.44      71.21      99345          0         0    212.43
+alpha=0.50          68.00     8.61      57.24     105782          0         0    244.97
+alpha=1.00          67.00     8.68      52.70     108300          0         0    245.72
+
+========== TRAFFIC LOAD BALANCING LAB (capacity 100) ==========
+ 1. Small example (shows paths, vehicles, road loads)
+ 2. Custom network size
+ 3. Trade-off test (change alpha)
+ 4. Scalability test (running time)
+ 0. Exit
+Choice: Bye!

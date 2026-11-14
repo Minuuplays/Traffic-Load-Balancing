@@ -1,0 +1,171 @@
+
+========== TRAFFIC LOAD BALANCING LAB (capacity 100) ==========
+ 1. Small example (shows paths, vehicles, road loads)
+ 2. Custom network size
+ 3. Trade-off test (change alpha)
+ 4. Scalability test (running time)
+ 0. Exit
+Choice: 
+=== Shortest Path | time step 1 ===
+  Request 1: 27 vehicles, 2 -> 0
+      27 vehicles : 2 -> 0   (distance 15)
+  Request 2: 80 vehicles, 2 -> 7
+      80 vehicles : 2 -> 9 -> 7   (distance 29)
+  Request 3: 64 vehicles, 7 -> 3
+      64 vehicles : 7 -> 9 -> 3   (distance 18)
+  Request 4: 78 vehicles, 4 -> 3
+      78 vehicles : 4 -> 0 -> 3   (distance 21)
+  Road loads (capacity 100):
+     road 2-0 (w=15) : 27
+     road 3-0 (w=16) : 78
+     road 4-0 (w=5) : 78
+     road 9-2 (w=16) : 80
+     road 9-7 (w=13) : 144   <-- OVER CAPACITY
+     road 3-9 (w=5) : 64
+
+=== Shortest Path | time step 2 ===
+  Request 1: 51 vehicles, 0 -> 9
+      51 vehicles : 0 -> 3 -> 9   (distance 21)
+  Request 2: 20 vehicles, 9 -> 6
+      20 vehicles : 9 -> 6   (distance 14)
+  Request 3: 19 vehicles, 5 -> 4
+      19 vehicles : 5 -> 0 -> 4   (distance 19)
+  Request 4: 71 vehicles, 8 -> 6
+      71 vehicles : 8 -> 7 -> 6   (distance 28)
+  Road loads (capacity 100):
+     road 3-0 (w=16) : 51
+     road 4-0 (w=5) : 19
+     road 5-0 (w=14) : 19
+     road 7-6 (w=15) : 71
+     road 8-7 (w=13) : 71
+     road 6-9 (w=14) : 20
+     road 3-9 (w=5) : 51
+
+=== Greedy LB | time step 1 ===
+  Request 1: 27 vehicles, 2 -> 0
+      15 vehicles : 2 -> 0   (distance 15)
+       6 vehicles : 2 -> 9 -> 1 -> 0   (distance 38)
+       6 vehicles : 2 -> 9 -> 3 -> 0   (distance 37)
+  Request 2: 80 vehicles, 2 -> 7
+      16 vehicles : 2 -> 0 -> 3 -> 9 -> 7   (distance 49)
+      16 vehicles : 2 -> 0 -> 4 -> 6 -> 7   (distance 50)
+      16 vehicles : 2 -> 9 -> 6 -> 7   (distance 45)
+      32 vehicles : 2 -> 9 -> 7   (distance 29)
+  Request 3: 64 vehicles, 7 -> 3
+      13 vehicles : 7 -> 6 -> 4 -> 0 -> 3   (distance 51)
+      13 vehicles : 7 -> 6 -> 9 -> 3   (distance 34)
+      13 vehicles : 7 -> 9 -> 1 -> 0 -> 3   (distance 51)
+      25 vehicles : 7 -> 9 -> 3   (distance 18)
+  Request 4: 78 vehicles, 4 -> 3
+      48 vehicles : 4 -> 0 -> 3   (distance 21)
+      30 vehicles : 4 -> 6 -> 9 -> 3   (distance 34)
+  Road loads (capacity 100):
+     road 1-0 (w=8) : 19
+     road 2-0 (w=15) : 47
+     road 3-0 (w=16) : 96
+     road 4-0 (w=5) : 77
+     road 6-4 (w=15) : 59
+     road 7-6 (w=15) : 58
+     road 9-2 (w=16) : 60
+     road 6-9 (w=14) : 59
+     road 9-1 (w=14) : 19
+     road 9-7 (w=13) : 86
+     road 3-9 (w=5) : 90
+
+=== Greedy LB | time step 2 ===
+  Request 1: 51 vehicles, 0 -> 9
+      11 vehicles : 0 -> 1 -> 9   (distance 22)
+      11 vehicles : 0 -> 2 -> 9   (distance 31)
+      18 vehicles : 0 -> 3 -> 9   (distance 21)
+      11 vehicles : 0 -> 4 -> 6 -> 9   (distance 34)
+  Request 2: 20 vehicles, 9 -> 6
+       8 vehicles : 9 -> 6   (distance 14)
+      12 vehicles : 9 -> 7 -> 6   (distance 28)
+  Request 3: 19 vehicles, 5 -> 4
+      19 vehicles : 5 -> 0 -> 4   (distance 19)
+  Request 4: 71 vehicles, 8 -> 6
+      56 vehicles : 8 -> 7 -> 6   (distance 28)
+      15 vehicles : 8 -> 7 -> 9 -> 6   (distance 40)
+  Road loads (capacity 100):
+     road 1-0 (w=8) : 11
+     road 2-0 (w=15) : 11
+     road 3-0 (w=16) : 18
+     road 4-0 (w=5) : 30
+     road 5-0 (w=14) : 19
+     road 6-4 (w=15) : 11
+     road 7-6 (w=15) : 68
+     road 8-7 (w=13) : 71
+     road 9-2 (w=16) : 11
+     road 6-9 (w=14) : 34
+     road 9-1 (w=14) : 11
+     road 9-7 (w=13) : 27
+     road 3-9 (w=5) : 18
+
+=== Proposed | time step 1 ===
+  Request 1: 27 vehicles, 2 -> 0
+      27 vehicles : 2 -> 0   (distance 15)
+  Request 2: 80 vehicles, 2 -> 7
+      17 vehicles : 2 -> 0 -> 4 -> 6 -> 7   (distance 50)
+       8 vehicles : 2 -> 9 -> 6 -> 7   (distance 45)
+      55 vehicles : 2 -> 9 -> 7   (distance 29)
+  Request 3: 64 vehicles, 7 -> 3
+      20 vehicles : 7 -> 6 -> 9 -> 3   (distance 34)
+      44 vehicles : 7 -> 9 -> 3   (distance 18)
+  Request 4: 78 vehicles, 4 -> 3
+      17 vehicles : 4 -> 0 -> 1 -> 9 -> 3   (distance 32)
+      56 vehicles : 4 -> 0 -> 3   (distance 21)
+       5 vehicles : 4 -> 6 -> 9 -> 3   (distance 34)
+  Road loads (capacity 100):
+     road 1-0 (w=8) : 17
+     road 2-0 (w=15) : 44
+     road 3-0 (w=16) : 56
+     road 4-0 (w=5) : 90
+     road 6-4 (w=15) : 22
+     road 7-6 (w=15) : 45
+     road 9-2 (w=16) : 63
+     road 6-9 (w=14) : 33
+     road 9-1 (w=14) : 17
+     road 9-7 (w=13) : 99
+     road 3-9 (w=5) : 86
+
+=== Proposed | time step 2 ===
+  Request 1: 51 vehicles, 0 -> 9
+      19 vehicles : 0 -> 1 -> 9   (distance 22)
+      11 vehicles : 0 -> 2 -> 9   (distance 31)
+      21 vehicles : 0 -> 3 -> 9   (distance 21)
+  Request 2: 20 vehicles, 9 -> 6
+      20 vehicles : 9 -> 6   (distance 14)
+  Request 3: 19 vehicles, 5 -> 4
+      19 vehicles : 5 -> 0 -> 4   (distance 19)
+  Request 4: 71 vehicles, 8 -> 6
+      55 vehicles : 8 -> 7 -> 6   (distance 28)
+      16 vehicles : 8 -> 7 -> 9 -> 6   (distance 40)
+  Road loads (capacity 100):
+     road 1-0 (w=8) : 19
+     road 2-0 (w=15) : 11
+     road 3-0 (w=16) : 21
+     road 4-0 (w=5) : 19
+     road 5-0 (w=14) : 19
+     road 7-6 (w=15) : 55
+     road 8-7 (w=13) : 71
+     road 9-2 (w=16) : 11
+     road 6-9 (w=14) : 36
+     road 9-1 (w=14) : 19
+     road 9-7 (w=13) : 16
+     road 3-9 (w=5) : 21
+
+===== COMPARISON (10 nodes, 13 roads, 2 time steps, capacity 100) =====
+Algorithm         MaxLoad  AvgLoad   Variance  TotalDist   Overload  Unrouted  Time(ms)
+---------------------------------------------------------------------------------------
+Shortest Path      144.00    29.73    1402.10       9215          1         0      0.01
+Greedy LB           96.00    38.85     697.65      12465          0         0      0.05
+Proposed            99.00    34.23     682.82      10593          0         0      0.28
+Overload = roads above capacity (summed over steps), Unrouted = vehicles with no free path
+
+========== TRAFFIC LOAD BALANCING LAB (capacity 100) ==========
+ 1. Small example (shows paths, vehicles, road loads)
+ 2. Custom network size
+ 3. Trade-off test (change alpha)
+ 4. Scalability test (running time)
+ 0. Exit
+Choice: Bye!

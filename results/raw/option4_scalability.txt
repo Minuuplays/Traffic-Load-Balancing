@@ -1,0 +1,57 @@
+
+========== TRAFFIC LOAD BALANCING LAB (capacity 100) ==========
+ 1. Small example (shows paths, vehicles, road loads)
+ 2. Custom network size
+ 3. Trade-off test (change alpha)
+ 4. Scalability test (running time)
+ 0. Exit
+Choice: 
+Running time for growing networks (3 steps, 50 requests each)
+
+===== COMPARISON (100 nodes, 147 roads, 3 time steps, capacity 100) =====
+Algorithm         MaxLoad  AvgLoad   Variance  TotalDist   Overload  Unrouted  Time(ms)
+---------------------------------------------------------------------------------------
+Shortest Path      275.00    25.78    1429.15      89496         16         0      0.76
+Greedy LB           89.00    27.05     249.25     124380          0         0      8.02
+Proposed           100.00    24.87     347.90      98885          0         0     43.56
+Overload = roads above capacity (summed over steps), Unrouted = vehicles with no free path
+
+===== COMPARISON (500 nodes, 747 roads, 3 time steps, capacity 100) =====
+Algorithm         MaxLoad  AvgLoad   Variance  TotalDist   Overload  Unrouted  Time(ms)
+---------------------------------------------------------------------------------------
+Shortest Path      115.00     6.65     194.38     108535          3         0      4.92
+Greedy LB           41.00     8.02      35.16     183964          0         0     25.38
+Proposed            77.00     6.75      67.78     125334          0         0    258.88
+Overload = roads above capacity (summed over steps), Unrouted = vehicles with no free path
+
+===== COMPARISON (1000 nodes, 1496 roads, 3 time steps, capacity 100) =====
+Algorithm         MaxLoad  AvgLoad   Variance  TotalDist   Overload  Unrouted  Time(ms)
+---------------------------------------------------------------------------------------
+Shortest Path       88.00     3.82      83.92     137786          0         0      9.23
+Greedy LB           36.00     4.79      18.82     230696          0         0     49.81
+Proposed            36.00     4.02      29.23     157960          0         0    723.90
+Overload = roads above capacity (summed over steps), Unrouted = vehicles with no free path
+
+===== COMPARISON (2000 nodes, 2998 roads, 3 time steps, capacity 100) =====
+Algorithm         MaxLoad  AvgLoad   Variance  TotalDist   Overload  Unrouted  Time(ms)
+---------------------------------------------------------------------------------------
+Shortest Path      102.00     2.39      63.31     157515          1         0     21.37
+Greedy LB           38.00     2.88      12.98     270438          0         0    117.30
+Proposed            35.00     2.50      18.47     182419          0         0   1872.01
+Overload = roads above capacity (summed over steps), Unrouted = vehicles with no free path
+
+===== COMPARISON (5000 nodes, 7498 roads, 3 time steps, capacity 100) =====
+Algorithm         MaxLoad  AvgLoad   Variance  TotalDist   Overload  Unrouted  Time(ms)
+---------------------------------------------------------------------------------------
+Shortest Path       86.00     0.96      20.76     154335          0         0     53.22
+Greedy LB           42.00     1.05       4.96     243800          0         0    313.52
+Proposed            42.00     1.03       6.53     177901          0         0   4945.42
+Overload = roads above capacity (summed over steps), Unrouted = vehicles with no free path
+
+========== TRAFFIC LOAD BALANCING LAB (capacity 100) ==========
+ 1. Small example (shows paths, vehicles, road loads)
+ 2. Custom network size
+ 3. Trade-off test (change alpha)
+ 4. Scalability test (running time)
+ 0. Exit
+Choice: Bye!
