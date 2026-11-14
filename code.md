@@ -1,25 +1,51 @@
-FINAL CODE 
+# FINAL CODE
 
-Traffic Load Balancing with Road Capacity - Open Ended Lab Task
+## Traffic Load Balancing with Road Capacity
+### Open-Ended Lab Task
 
-Every road can carry at most CAPACITY = 100 vehicles per time step.
+Every road can carry at most `CAPACITY = 100` vehicles per time step.
 
-Solution Approaches :: 
+---
 
-1. Shortest Path : all vehicles on the shortest path (ignores traffic and capacity)
+## Solution Approaches
 
-2. Greedy LB     : small groups, each takes the least-loaded path (ignores distance), full roads are skipped
+### 1. Shortest Path
+- All vehicles are assigned to the shortest path.
+- Ignores existing traffic and road capacity.
 
-3. Proposed      : CALB (Congestion-Aware Load Balancing)
-   --> optimal min-cost flow split for each request.
-   --> method : 
-   The k-th vehicle on a road costs  w * (1 + ALPHA * (k-1)),
-   so a busy road gets more expensive with every extra vehicle, and a full road
-   (100 vehicles) cannot be used at all.
-   Vehicles are sent one at a time on the cheapest path in the residual network
-   (successive shortest paths). The residual network can also move earlier
-   vehicles of the same request to another route, so the split found for a
-   request is OPTIMAL for that request, given the traffic already on the roads.
-   Then the requests are re-optimised one by one until no request can lower
-   the cost any more.
-   (A guaranteed optimum over ALL requests jointly is NP-hard in general.)
+### 2. Greedy Load Balancing (Greedy LB)
+- Vehicles are divided into small groups.
+- Each group takes the least-loaded available path.
+- Ignores travel distance.
+- Fully occupied roads are skipped.
+
+### 3. Proposed Approach: CALB (Congestion-Aware Load Balancing)
+
+CALB uses an optimal minimum-cost flow split for each request.
+
+#### Cost Function
+
+The cost of assigning the *k-th* vehicle to a road is:
+
+\[
+\text{Cost}(k) = w \times (1 + \text{ALPHA} \times (k-1))
+\]
+
+Where:
+- `w` = base weight of the road.
+- `ALPHA` = congestion penalty factor.
+- `k` = vehicle's position on the road.
+
+As more vehicles use a road, its cost increases. A fully occupied road (`100` vehicles) cannot be used.
+
+#### Method: Successive Shortest Paths
+
+1. Vehicles are sent one at a time through the cheapest available path in the residual network.
+2. The residual network can also reroute previously assigned vehicles of the same request to alternative routes.
+3. This allows CALB to find an **optimal vehicle distribution for each request**, given the existing traffic on the roads.
+
+#### Iterative Re-optimization
+
+After processing all requests, CALB re-optimizes them one by one until no request can further reduce the total cost.
+
+**Note:** A guaranteed global optimum across all requests jointly is NP-hard in general.
